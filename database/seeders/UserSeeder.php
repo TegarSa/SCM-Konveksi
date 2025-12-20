@@ -20,37 +20,34 @@ class UserSeeder extends Seeder
         $user = [
             [
                 'name' => 'admin',
-                'email' => 'admin@.co.id',
-                'phone' => '08170039080',
-                'institution' => 'syncore',
-                'level' => 'admin',
-                'password' => Hash::make('syncore12345')
+                'email' => 'admin@virend.co.id',
+                'institution' => 'virend',
+                'role' => 'admin',
+                'password' => Hash::make('virend12345')
             ],
 
             [
-                'name' => 'editor',
-                'email' => 'editor@blud.co.id',
-                'phone' => '08170039080',
-                'institution' => 'syncore',
-                'level' => 'editor',
-                'password' => Hash::make('syncore12345')
+                'name' => 'staff',
+                'email' => 'staff@virend.co.id',
+                'institution' => 'virend',
+                'role' => 'editor',
+                'password' => Hash::make('virend12345')
             ],
             [
-                'name' => 'author',
-                'email' => 'author@blud.co.id',
-                'phone' => '08170039080',
-                'institution' => 'syncore',
-                'level' => 'author',
-                'password' => Hash::make('syncore12345')
+                'name' => 'manager',
+                'email' => 'manager@virend.co.id',
+                'institution' => 'virend',
+                'role' => 'manager',
+                'password' => Hash::make('virend12345')
             ],
-            [
-                'name' => 'user',
-                'email' => 'user@blud.co.id',
-                'phone' => '08170039080',
-                'institution' => 'syncore',
-                'level' => 'subscriber',
-                'password' => Hash::make('syncore12345')
-            ],
+            // [
+            //     'name' => 'user',
+            //     'email' => 'user@blud.co.id',
+            //     'phone' => '08170039080',
+            //     'institution' => 'syncore',
+            //     'level' => 'subscriber',
+            //     'password' => Hash::make('syncore12345')
+            // ],
         ];
 
         foreach ($user as $key => $value) {
