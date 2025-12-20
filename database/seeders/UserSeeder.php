@@ -21,26 +21,23 @@ class UserSeeder extends Seeder
             [
                 'name' => 'admin',
                 'email' => 'admin@virend.co.id',
-                'phone' => '08170039080',
                 'institution' => 'virend',
-                'level' => 'admin',
+                'role' => 'admin',
                 'password' => Hash::make('virend12345')
             ],
 
             [
                 'name' => 'staff',
                 'email' => 'staff@virend.co.id',
-                'phone' => '08170039080',
                 'institution' => 'virend',
-                'level' => 'editor',
+                'role' => 'editor',
                 'password' => Hash::make('virend12345')
             ],
             [
                 'name' => 'manager',
                 'email' => 'manager@virend.co.id',
-                'phone' => '08170039080',
                 'institution' => 'virend',
-                'level' => 'manager',
+                'role' => 'manager',
                 'password' => Hash::make('virend12345')
             ],
             // [

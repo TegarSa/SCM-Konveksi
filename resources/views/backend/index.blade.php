@@ -276,12 +276,12 @@
                             <tr>
                                 <td>
                                     <div class="d-flex">
-                                        <div class="flex-shrink-0">
+                                        <div class="shrink-0">
                                             <div class="bg-light rounded-2">
                                                 <img class="p-2" src="img/icons/brand-1.svg">
                                             </div>
                                         </div>
-                                        <div class="flex-grow-1 ms-3">
+                                        <div class="grow ms-3">
                                             <strong>Project Apollo</strong>
                                             <div class="text-muted">
                                                 Web, UI/UX Design
@@ -317,12 +317,12 @@
                             <tr>
                                 <td>
                                     <div class="d-flex">
-                                        <div class="flex-shrink-0">
+                                        <div class="shrink-0">
                                             <div class="bg-light rounded-2">
                                                 <img class="p-2" src="img/icons/brand-2.svg">
                                             </div>
                                         </div>
-                                        <div class="flex-grow-1 ms-3">
+                                        <div class="grow ms-3">
                                             <strong>Project Bongo</strong>
                                             <div class="text-muted">
                                                 Web
@@ -358,12 +358,12 @@
                             <tr>
                                 <td>
                                     <div class="d-flex">
-                                        <div class="flex-shrink-0">
+                                        <div class="shrink-0">
                                             <div class="bg-light rounded-2">
                                                 <img class="p-2" src="img/icons/brand-3.svg">
                                             </div>
                                         </div>
-                                        <div class="flex-grow-1 ms-3">
+                                        <div class="grow ms-3">
                                             <strong>Project Canary</strong>
                                             <div class="text-muted">
                                                 Web, UI/UX Design
@@ -399,12 +399,12 @@
                             <tr>
                                 <td>
                                     <div class="d-flex">
-                                        <div class="flex-shrink-0">
+                                        <div class="shrink-0">
                                             <div class="bg-light rounded-2">
                                                 <img class="p-2" src="img/icons/brand-4.svg">
                                             </div>
                                         </div>
-                                        <div class="flex-grow-1 ms-3">
+                                        <div class="grow ms-3">
                                             <strong>Project Edison</strong>
                                             <div class="text-muted">
                                                 UI/UX Design
@@ -440,12 +440,12 @@
                             <tr>
                                 <td>
                                     <div class="d-flex">
-                                        <div class="flex-shrink-0">
+                                        <div class="shrink-0">
                                             <div class="bg-light rounded-2">
                                                 <img class="p-2" src="img/icons/brand-5.svg">
                                             </div>
                                         </div>
-                                        <div class="flex-grow-1 ms-3">
+                                        <div class="grow ms-3">
                                             <strong>Project Indigo</strong>
                                             <div class="text-muted">
                                                 Web, UI/UX Design
