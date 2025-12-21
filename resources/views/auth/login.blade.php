@@ -5,12 +5,11 @@
    <div class="row">
       <div class="col-lg-6 sisi-kiri" id="sticky-sidebar" style="background-color: #222E3C; min-height: 100vh;">
          <div class="sticky-top">
-            <div class="sisi-kiri2" style="background-image: url(assets/home/img/Mask.png); min-height: 100vh;">
+            <div class="sisi-kiri2">
                <div class="row">
                   <div class="col-12">
                      <div class="d-flex justify-content-start card-logo-register flex-row">
-                        <img class="logo-bumdes" src="{{ asset('/assets/admin/img/bumdes-logo.png') }}">
-                        <img class="kebangkitan" src="{{ asset('/assets/home/img/kebangkitan.png') }}">
+                        <img class="kebangkitan" src="{{ asset('/assets/img/logo.png') }}">
                      </div>
                   </div>
                </div>
@@ -19,37 +18,35 @@
                      <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                            <div class="carousel-item active" data-bs-interval="2000">
-                              <div class="d-flex flex-column justify-content-center align-items-center" style="height: 500px;">
-                                 <img class="img-slider" src="{{ asset('/assets/home/img/slide1.png') }}">
+                              <div class="d-flex flex-column justify-content-center align-items-center py-5" style="min-height: 480px;">
+                                 <img class="img-slider" src="{{ asset('/assets/img/1.png') }}">
                                  <h1 class="title-slider">
-                                    Yuk asah potensi kamu
+                                    Go Beyond Style
                                  </h1>
                                  <p class="isi-slider">
-                                    Ikuti pelatihan yang didukung konsultan dan praktisi Bumdes sesuai dengan kebutuhan anda
+                                    Hadirkan pakaian berkualitas dengan proses produksi efisien melalui sistem SCM konveksi modern kami.
                                  </p>
                               </div>
                            </div>
                            <div class="carousel-item" data-bs-interval="2000">
-                              <div class="d-flex flex-column justify-content-center align-items-center" style="height: 500px;">
-                                 <img class="img-slider" src="{{ asset('/assets/home/img/slide2.png') }}">
+                              <div class="d-flex flex-column justify-content-center align-items-center py-5" style="min-height: 480px;">
+                                 <img class="img-slider" src="{{ asset('/assets/img/2.png') }}">
                                  <h1 class="title-slider">
-                                    Pendampingan BUMDesa
+                                    Kelola Produksi Tanpa Ribet
                                  </h1>
                                  <p class="isi-slider">
-                                    Ikuti pendampingan BUMDesa pemetaan potensi & pemilihan usaha Bumdes, Tata Kelola & Manajemen Operasional Bumdes, serta Akuntansi &
-                                    Pertanggungjawaban Bumdes
+                                    Pantau alur bahan, produksi, hingga distribusi dengan sistem SCM kami yang transparan dan mudah digunakan.
                                  </p>
                               </div>
                            </div>
                            <div class="carousel-item" data-bs-interval="2000">
-                              <div class="d-flex flex-column justify-content-center align-items-center" style="height: 500px;">
-                                 <img class="img-slider" src="{{ asset('/assets/home/img/slide3.png') }}">
+                              <div class="d-flex flex-column justify-content-center align-items-center py-5" style="min-height: 480px;">
+                                 <img class="img-slider" src="{{ asset('/assets/img/3.png') }}">
                                  <h1 class="title-slider">
-                                    Layanan Digital
+                                    Kualitas & Tepat Waktu
                                  </h1>
                                  <p class="isi-slider">
-                                    ikuti Layanan digital untuk mendukung pengelolaan Bumdes, seperti Cek Kesehatan Usaha Bumdes (CKU), Sistem Aplikasi Akuntansi Bumdes (SAAB) dan
-                                    layanan konsultasi lainnya
+                                    Pastikan setiap pakaian yang dihasilkan sesuai standar dan dikirim tepat waktu berkat integrasi SCM yang efektif.
                                  </p>
                               </div>
                            </div>

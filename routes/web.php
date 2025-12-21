@@ -25,7 +25,6 @@ Route::middleware(['cek_login:admin,staff,manager'])->prefix('dashboard')->group
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-
 // =======================
 // ADMIN ROUTES (User Management)
 // =======================
@@ -34,7 +33,6 @@ Route::middleware(['cek_login:admin'])->prefix('dashboard/admin')->group(functio
     Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 });
-
 
 // =======================
 // MANAGEMEN PERSEDIAAN BARANG
@@ -46,3 +44,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('persediaan/{barang}/edit', [ProductController::class, 'edit'])->name('persediaan.edit');
     Route::put('persediaan/{barang}', [ProductController::class, 'update'])->name('persediaan.update');
 });
+
+// Route::middleware(['cek_login:admin'])->prefix('dashboard/admin')->group(function () {
+
+//         Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+//         Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
+//         Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+// });
