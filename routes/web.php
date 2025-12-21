@@ -18,9 +18,9 @@ Route::middleware(['cek_login:admin,staff,manager'])->prefix('dashboard')->group
 
 });
 
-Route::middleware(['cek_login:admin'])->prefix('dashboard/admin')->group(function () {
+// Route::middleware(['cek_login:admin'])->prefix('dashboard/admin')->group(function () {
 
-        Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
-        Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
-        Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
-});
+//         Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+//         Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
+//         Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+// });
