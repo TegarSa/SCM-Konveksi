@@ -122,6 +122,15 @@
                     <span>Data Persediaan</span>
                 </a>
             </li>
+
+            <li class="sidebar-header">Daftar Pengiriman</li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('shipments.index') }}">
+                    <i data-feather="list"></i>
+                    <span>Data Pengiriman</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

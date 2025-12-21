@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShipmentsController;
 
 // =======================
 // LOGIN & LOGOUT
@@ -44,6 +45,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('persediaan/{barang}/edit', [ProductController::class, 'edit'])->name('persediaan.edit');
     Route::put('persediaan/{barang}', [ProductController::class, 'update'])->name('persediaan.update');
 });
+
+// =======================
+// Daftar Pengiriman Barang / Shipments Management
+// =======================
+Route::middleware(['auth'])->group(function () {
+    Route::resource('shipments', ShipmentsController::class);
+});
+
 
 // Route::middleware(['cek_login:admin'])->prefix('dashboard/admin')->group(function () {
 
