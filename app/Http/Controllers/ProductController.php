@@ -32,35 +32,59 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_produk' => 'required|string|max:255',
-            'jenis_produk' => 'required|string|max:255',
-            'sku_kode' => 'required|string|max:100|unique:products',
-            'supplier_id' => 'required|exists:suppliers,id',
-            'stok_awal' => 'required|integer|min:0',
-            'stok_masuk' => 'nullable|integer|min:0',
-            'stok_keluar' => 'nullable|integer|min:0',
-            'satuan' => 'required|string|max:50',
-            'harga_satuan' => 'required|numeric|min:0',
+            'nama_produk'    => 'required|string|max:255',
+            'jenis_produk'   => 'required|string|max:255',
+            'sku_kode'       => 'required|string|max:100|unique:products,sku_kode',
+            'stok_awal'      => 'required|integer|min:0',
+            'stok_masuk'     => 'nullable|integer|min:0',
+            'stok_keluar'    => 'nullable|integer|min:0',
+            'satuan'         => 'required|string|max:50',
+            'harga_satuan'   => 'required|numeric|min:0',
+            'supplier_id'    => 'nullable|exists:suppliers,id',
+            'supplier_manual'=> 'nullable|string|max:255',
         ]);
 
-        $stokAkhir = $request->stok_awal + ($request->stok_masuk ?? 0) - ($request->stok_keluar ?? 0);
+        // Validasi supplier: pilih atau input manual
+        if (!$request->supplier_id && !$request->supplier_manual) {
+            return back()
+                ->withErrors(['supplier' => 'Supplier harus dipilih atau diisi manual'])
+                ->withInput();
+        }
+
+        // Jika supplier manual diisi → buat supplier baru
+        if ($request->supplier_manual) {
+            $supplier = Supplier::create([
+                'nama_supplier' => $request->supplier_manual,
+            ]);
+            $supplierId = $supplier->id;
+        } else {
+            $supplierId = $request->supplier_id;
+        }
+
+        // Hitung stok & harga
+        $stokAkhir  = $request->stok_awal
+                        + ($request->stok_masuk ?? 0)
+                        - ($request->stok_keluar ?? 0);
+
         $totalHarga = $stokAkhir * $request->harga_satuan;
 
         Product::create([
-            'nama_produk' => $request->nama_produk,
-            'jenis_produk' => $request->jenis_produk,
-            'sku_kode' => $request->sku_kode,
-            'supplier_id' => $request->supplier_id,
-            'stok_awal' => $request->stok_awal,
-            'stok_masuk' => $request->stok_masuk ?? 0,
-            'stok_keluar' => $request->stok_keluar ?? 0,
-            'stok_akhir' => $stokAkhir,
-            'satuan' => $request->satuan,
-            'harga_satuan' => $request->harga_satuan,
-            'total_harga' => $totalHarga,
+            'nama_produk'   => $request->nama_produk,
+            'jenis_produk'  => $request->jenis_produk,
+            'sku_kode'      => $request->sku_kode,
+            'supplier_id'   => $supplierId,
+            'stok_awal'     => $request->stok_awal,
+            'stok_masuk'    => $request->stok_masuk ?? 0,
+            'stok_keluar'   => $request->stok_keluar ?? 0,
+            'stok_akhir'    => $stokAkhir,
+            'satuan'        => $request->satuan,
+            'harga_satuan'  => $request->harga_satuan,
+            'total_harga'   => $totalHarga,
         ]);
 
-        return redirect()->route('barang.index')->with('success', 'Produk berhasil ditambahkan.');
+        return redirect()->route('persediaan.index')
+            ->with('success', 'Produk berhasil ditambahkan.');
+
     }
 
     /**
@@ -78,35 +102,39 @@ class ProductController extends Controller
     public function update(Request $request, Product $barang)
     {
         $request->validate([
-            'nama_produk' => 'required|string|max:255',
-            'jenis_produk' => 'required|string|max:255',
-            'sku_kode' => 'required|string|max:100|unique:products,sku_kode,' . $barang->id,
-            'supplier_id' => 'required|exists:suppliers,id',
-            'stok_awal' => 'required|integer|min:0',
-            'stok_masuk' => 'nullable|integer|min:0',
-            'stok_keluar' => 'nullable|integer|min:0',
-            'satuan' => 'required|string|max:50',
-            'harga_satuan' => 'required|numeric|min:0',
+            'nama_produk'   => 'required|string|max:255',
+            'jenis_produk'  => 'required|string|max:255',
+            'sku_kode'      => 'required|string|max:100|unique:products,sku_kode,' . $barang->id,
+            'supplier_id'   => 'required|exists:suppliers,id',
+            'stok_awal'     => 'required|integer|min:0',
+            'stok_masuk'    => 'nullable|integer|min:0',
+            'stok_keluar'   => 'nullable|integer|min:0',
+            'satuan'        => 'required|string|max:50',
+            'harga_satuan'  => 'required|numeric|min:0',
         ]);
 
-        $stokAkhir = $request->stok_awal + ($request->stok_masuk ?? 0) - ($request->stok_keluar ?? 0);
+        $stokAkhir  = $request->stok_awal
+                        + ($request->stok_masuk ?? 0)
+                        - ($request->stok_keluar ?? 0);
+
         $totalHarga = $stokAkhir * $request->harga_satuan;
 
         $barang->update([
-            'nama_produk' => $request->nama_produk,
-            'jenis_produk' => $request->jenis_produk,
-            'sku_kode' => $request->sku_kode,
-            'supplier_id' => $request->supplier_id,
-            'stok_awal' => $request->stok_awal,
-            'stok_masuk' => $request->stok_masuk ?? 0,
-            'stok_keluar' => $request->stok_keluar ?? 0,
-            'stok_akhir' => $stokAkhir,
-            'satuan' => $request->satuan,
-            'harga_satuan' => $request->harga_satuan,
-            'total_harga' => $totalHarga,
+            'nama_produk'   => $request->nama_produk,
+            'jenis_produk'  => $request->jenis_produk,
+            'sku_kode'      => $request->sku_kode,
+            'supplier_id'   => $request->supplier_id,
+            'stok_awal'     => $request->stok_awal,
+            'stok_masuk'    => $request->stok_masuk ?? 0,
+            'stok_keluar'   => $request->stok_keluar ?? 0,
+            'stok_akhir'    => $stokAkhir,
+            'satuan'        => $request->satuan,
+            'harga_satuan'  => $request->harga_satuan,
+            'total_harga'   => $totalHarga,
         ]);
 
-        return redirect()->route('barang.index')->with('success', 'Produk berhasil diupdate.');
+        return redirect()->route('persediaan.index')
+            ->with('success', 'Produk berhasil diupdate.');
     }
 
     /**
@@ -115,6 +143,9 @@ class ProductController extends Controller
     public function destroy(Product $barang)
     {
         $barang->delete();
-        return redirect()->route('barang.index')->with('success', 'Produk berhasil dihapus.');
+
+        return redirect()
+            ->route('barang.index')
+            ->with('success', 'Produk berhasil dihapus.');
     }
 }

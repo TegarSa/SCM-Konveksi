@@ -9,6 +9,8 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $table = 'products';
+
     protected $fillable = [
         'nama_produk',
         'jenis_produk',
@@ -20,7 +22,7 @@ class Product extends Model
         'stok_akhir',
         'satuan',
         'harga_satuan',
-        'total_harga'
+        'total_harga',
     ];
 
     public function supplier()
