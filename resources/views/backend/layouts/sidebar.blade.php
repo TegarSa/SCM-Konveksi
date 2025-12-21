@@ -42,62 +42,64 @@
             <li class="sidebar-header">Menu</li>
 
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a data-bs-target="#profil" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i data-feather="sliders"></i>
                     <span>Dashboards</span>
                 </a>
+                <ul id="profil" class="sidebar-dropdown list-unstyled collapse">
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('dashboard') }}">Analytics</a></li>
+                </ul>
             </li>
 
             <li class="sidebar-item">
-                <a href=" #" class="sidebar-link">
+                <a href="{{ route('profile') }}" class="sidebar-link">
                     <i data-feather="user"></i>
                     <span>Profil</span>
                 </a>
             </li>
 
+            <li class="sidebar-header">Pengelolaan</li>
+
             <li class="sidebar-item">
                 <a data-bs-target="#pelatihan" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i data-feather="layout"></i>
-                    <span>Pelatihan</span>
+                    <i data-feather="briefcase"></i>
+                    <span>Manajemen Persediaan</span>
                 </a>
                 <ul id="pelatihan" class="sidebar-dropdown list-unstyled collapse">
                     <li class="sidebar-item"><a class="sidebar-link" href="#">Bootcamp 2 Hari</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">Bootcamp 3 Hari</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">Bootcamp Ramadhan</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">Pelatihan Online</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Pelatihan 2022</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Pelatihan 2021</a></li>
                 </ul>
             </li>
 
             <li class="sidebar-item">
                 <a data-bs-target="#berita" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i data-feather="layout"></i>
-                    <span>Berita</span>
+                    <i data-feather="briefcase"></i>
+                    <span>Pengadaan / Pembelian</span>
                 </a>
                 <ul id="berita" class="sidebar-dropdown list-unstyled collapse">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Video Tutorial</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Gallery</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">FAQ</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('supplier.index') }}">Data Pemasok</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('po.index') }}">Purchase Order (PO)</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Riwayat PO</a></li>
                 </ul>
             </li>
 
             <li class="sidebar-item">
                 <a data-bs-target="#unduh" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i data-feather="layout"></i>
-                    <span>Unduh</span>
+                    <i data-feather="briefcase"></i>
+                    <span>Manajemen Gudang</span>
                 </a>
                 <ul id="unduh" class="sidebar-dropdown list-unstyled collapse">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Kategori</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Dokumen</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Records</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Laporan Stok Gudang</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Pergerakan Stok</a></li>
                 </ul>
             </li>
 
             <li class="sidebar-item">
                 <a data-bs-target="#profil" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i data-feather="layout"></i>
-                    <span>Profil</span>
+                    <i data-feather="briefcase"></i>
+                    <span>Manajemen Logistik & Distribusi</span>
                 </a>
                 <ul id="profil" class="sidebar-dropdown list-unstyled collapse">
                     <li class="sidebar-item"><a class="sidebar-link" href="#">Narasumber</a></li>

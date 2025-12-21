@@ -39,4 +39,32 @@ class AuthController extends Controller
 
         return redirect()->route('login');
     }
+
+    public function showProfile()
+    {
+        $user = Auth::user();
+        return view('backend.profile.index', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'institution' => 'required|string|max:255',
+        ]);
+
+        if ($user->name === $validated['name'] && $user->institution === $validated['institution']) {
+            return redirect()->back()->with('status', 'Tidak ada perubahan untuk disimpan.');
+        }
+
+        $user->name = $validated['name'];
+        $user->institution = $validated['institution'];
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profil berhasil diupdate');
+    }
+
+
 }
