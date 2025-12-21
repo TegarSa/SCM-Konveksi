@@ -114,6 +114,14 @@
                 <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Daftar Buletin</span></a>
             </li>
 
+            <li class="sidebar-header">Manajemen Persediaan</li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('persediaan.index') }}">
+                    <i data-feather="list"></i>
+                    <span>Data Persediaan</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
