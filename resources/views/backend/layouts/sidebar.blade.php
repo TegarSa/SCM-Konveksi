@@ -11,6 +11,32 @@
             </svg>
         </a>
 
+        <div class="sidebar-user text-center my-3">
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-decoration-none" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ auth()->user()->photo ?? asset('assets/img/Default.jpeg') }}" alt="User Avatar" class="rounded avatar img-fluid me-2">
+                    <div class="text-start flex-fill">
+                        <div class="d-flex align-items-center justify-content-start gap-2">
+                            <span class="fw-semibold text-white">{{ auth()->user()->name }}</span>
+                            <span class="dropdown-toggle text-white"></span>
+                        </div>
+                        <div class="text-secondary fs-6">{{ auth()->user()->institution }}</div>
+                    </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end mt-2">
+                    <li><a class="dropdown-item" href="#">Profil</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="GET" class="d-none"></form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <ul class="sidebar-nav">
 
             <li class="sidebar-header">Menu</li>
@@ -19,6 +45,13 @@
                 <a href="#" class="sidebar-link">
                     <i data-feather="sliders"></i>
                     <span>Dashboards</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a href=" #" class="sidebar-link">
+                    <i data-feather="user"></i>
+                    <span>Profil</span>
                 </a>
             </li>
 
@@ -69,67 +102,6 @@
                 <ul id="profil" class="sidebar-dropdown list-unstyled collapse">
                     <li class="sidebar-item"><a class="sidebar-link" href="#">Narasumber</a></li>
                 </ul>
-            </li>
-
-            <li class="sidebar-header">Seminar</li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Narasumber</span></a>
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Seminar</span></a>
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Webinar</span></a>
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Member</span></a>
-            </li>
-
-            <li class="sidebar-header">Merchandise</li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Kategori</span></a>
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Produk</span></a>
-            </li>
-
-            <li class="sidebar-header">Setting</li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Testimonial</span></a>
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Youtube</span></a>
-            </li>
-
-            <li class="sidebar-header">User</li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Subscriber</span></a>
-            </li>
-
-            <li class="sidebar-header">Artikel</li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Kategori</span></a>
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Tag</span></a>
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Post</span></a>
-            </li>
-
-            <li class="sidebar-header">E-BULETIN</li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#"><i data-feather="list"></i><span>Daftar Buletin</span></a>
-            </li>
-
-            <li class="sidebar-header">Manajemen Persediaan</li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('persediaan.index') }}">
-                    <i data-feather="list"></i>
-                    <span>Data Persediaan</span>
-                </a>
-            </li>
-
-            <li class="sidebar-header">Daftar Pengiriman</li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('shipments.index') }}">
-                    <i data-feather="list"></i>
-                    <span>Data Pengiriman</span>
-                </a>
             </li>
         </ul>
     </div>
