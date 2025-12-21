@@ -81,7 +81,7 @@
                               </div>
                            @endforeach
                         @endif
-                        <form action="{{ url('/proses_login') }}" method="POST">
+                        <form action="{{ route('proses_login') }}" method="POST">
                            @csrf
                            <div class="form-group" style="margin-bottom: 16px;">
                               <label class="label-form">Email*</label>
@@ -112,7 +112,7 @@
                               <div class="col-6">
                                  <div class="d-flex justify-content-end flex-row">
                                     <div class="form-group">
-                                       <a href="{{ url('/lupa-password') }}"><label class="lupa-sandi">Lupa kata Sandi?</label></a>
+                                       <a href="{{ url('lupa-password') }}"><label class="lupa-sandi">Lupa kata Sandi?</label></a>
                                     </div>
                                  </div>
                               </div>

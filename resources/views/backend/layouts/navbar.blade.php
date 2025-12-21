@@ -14,10 +14,10 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                    <img src="img/avatars/avatar.jpg" class="rounded avatar img-fluid" alt="" />
+                    <img src="{{ asset('/assets/img/logo.png') }}" class="rounded avatar img-fluid" alt="" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    {{-- <div class="dropdown-divider"></div> --}}
+                    <div class="dropdown-divider"></div>
                     @auth @if (Auth::user())
                         <form method="GET" action="{{ route('logout') }}">
                             @csrf
