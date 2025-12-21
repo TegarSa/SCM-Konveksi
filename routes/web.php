@@ -38,20 +38,25 @@ Route::middleware(['cek_login:admin'])->prefix('dashboard/admin')->group(functio
 // =======================
 // MANAGEMEN PERSEDIAAN BARANG
 // =======================
-Route::middleware(['auth'])->group(function () {
-    Route::get('persediaan', [ProductController::class, 'index'])->name('persediaan.index');
-    Route::get('persediaan/create', [ProductController::class, 'create'])->name('persediaan.create');
-    Route::post('persediaan', [ProductController::class, 'store'])->name('persediaan.store');
-    Route::get('persediaan/{barang}/edit', [ProductController::class, 'edit'])->name('persediaan.edit');
-    Route::put('persediaan/{barang}', [ProductController::class, 'update'])->name('persediaan.update');
-    Route::delete('persediaan/{barang}', [ProductController::class, 'destroy'])->name('persediaan.destroy');
+Route::prefix('/persediaan')->middleware(['auth'])->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('persediaan.index');
+        Route::get('/create', [ProductController::class, 'create'])->name('persediaan.create');
+        Route::post('/store', [ProductController::class, 'store'])->name('persediaan.store');
+        Route::get('/edit/{barang}', [ProductController::class, 'edit'])->name('persediaan.edit');
+        Route::post('/update/{barang}', [ProductController::class, 'update'])->name('persediaan.update');
+        Route::post('/delete/{barang}', [ProductController::class, 'destroy'])->name('persediaan.destroy');
 });
 
 // =======================
 // Daftar Pengiriman Barang / Shipments Management
 // =======================
-Route::middleware(['auth'])->group(function () {
-    Route::resource('shipments', ShipmentsController::class);
+Route::prefix('/shipments')->middleware(['auth'])->group(function () {
+        Route::get('/', [ShipmentsController::class, 'index'])->name('shipments.index');
+        Route::get('/create', [ShipmentsController::class, 'create'])->name('shipments.create');
+        Route::post('/store', [ShipmentsController::class, 'store'])->name('shipments.store');
+        Route::get('/edit/{shipment}', [ShipmentsController::class, 'edit'])->name('shipments.edit');
+        Route::post('/update/{shipment}', [ShipmentsController::class, 'update'])->name('shipments.update');
+        Route::post('/delete/{shipment}', [ShipmentsController::class, 'destroy'])->name('shipments.destroy');
 });
 
 
