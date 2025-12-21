@@ -22,7 +22,7 @@
 
             <div class="table-responsive">
                 <table id="shipmentTable"
-                       class="table table-bordered table-striped table-hover align-middle mb-0 w-100">
+                    class="table table-bordered table-striped table-hover align-middle mb-0 w-100">
                     <thead class="table-light">
                         <tr class="text-center">
                             <th>No</th>
@@ -58,14 +58,14 @@
                             <td>{{ $shipment->armada }}</td>
                             <td class="text-center">
                                 <a href="{{ route('shipments.edit', $shipment->id) }}"
-                                   class="btn btn-warning btn-sm">
+                                    class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
 
                                 <form action="{{ route('shipments.destroy', $shipment->id) }}"
-                                      method="POST"
-                                      class="d-inline"
-                                      onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                    method="POST"
+                                    class="d-inline"
+                                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm">

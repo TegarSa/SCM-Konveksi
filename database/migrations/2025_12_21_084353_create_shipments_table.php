@@ -10,20 +10,17 @@ return new class extends Migration
     {
         Schema::create('shipments', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('po_id')
-                ->constrained('purchase_orders')
-                ->cascadeOnDelete();
-
             $table->string('shipment_number')->unique();
             $table->date('shipment_date');
-
             $table->string('destination');
-            $table->string('status')->default('pending');
-            // pending | on_delivery | delivered | canceled
-
+            $table->enum('inventory_type', ['Masuk', 'Keluar']);
+            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
+            $table->string('product_name');
+            $table->integer('quantity');
+            $table->string('city');
+            $table->string('armada');
+            $table->enum('status', ['pending','on_delivery','delivered','canceled'])->default('pending');
             $table->text('notes')->nullable();
-
             $table->timestamps();
         });
     }

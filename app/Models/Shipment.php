@@ -22,4 +22,9 @@ class Shipment extends Model
         'status',
         'notes',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

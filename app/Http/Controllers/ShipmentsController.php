@@ -9,29 +9,18 @@ use Illuminate\Support\Str;
 
 class ShipmentsController extends Controller
 {
-    /**
-     * Menampilkan daftar pengiriman
-     */
     public function index()
     {
-        $shipments = Shipment::latest()->get();
-
+        $shipments = Shipment::latest()->with('product')->get();
         return view('backend.shipments.index', compact('shipments'));
     }
 
-    /**
-     * Menampilkan form tambah pengiriman
-     */
     public function create()
     {
         $products = Product::all();
-
         return view('backend.shipments.create', compact('products'));
     }
 
-    /**
-     * Menyimpan data pengiriman baru
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -49,12 +38,10 @@ class ShipmentsController extends Controller
 
         // Validasi stok jika keluar
         if ($request->inventory_type === 'Keluar' && $product->stok_akhir < $request->quantity) {
-            return back()
-                ->withErrors(['quantity' => 'Stok tidak mencukupi'])
-                ->withInput();
+            return back()->withErrors(['quantity' => 'Stok tidak mencukupi'])->withInput();
         }
 
-        // Generate nomor pengiriman
+        // Generate nomor pengiriman unik
         $shipmentNumber = 'SHP-' . strtoupper(Str::random(8));
 
         // Simpan shipment
@@ -78,27 +65,17 @@ class ShipmentsController extends Controller
         } else {
             $product->stok_akhir -= $request->quantity;
         }
-
         $product->save();
 
-        return redirect()
-            ->route('shipments.index')
-            ->with('success', 'Pengiriman berhasil ditambahkan');
+        return redirect()->route('shipments.index')->with('success', 'Pengiriman berhasil ditambahkan');
     }
 
-    /**
-     * Menampilkan form edit pengiriman
-     */
     public function edit(Shipment $shipment)
     {
         $products = Product::all();
-
         return view('backend.shipments.edit', compact('shipment', 'products'));
     }
 
-    /**
-     * Update data pengiriman
-     */
     public function update(Request $request, Shipment $shipment)
     {
         $request->validate([
@@ -122,11 +99,9 @@ class ShipmentsController extends Controller
             $product->stok_akhir += $shipment->quantity;
         }
 
-        // Cek stok baru jika keluar
+        // Validasi stok baru jika keluar
         if ($request->inventory_type === 'Keluar' && $product->stok_akhir < $request->quantity) {
-            return back()
-                ->withErrors(['quantity' => 'Stok tidak mencukupi'])
-                ->withInput();
+            return back()->withErrors(['quantity' => 'Stok tidak mencukupi'])->withInput();
         }
 
         // Update stok baru
@@ -135,50 +110,38 @@ class ShipmentsController extends Controller
         } else {
             $product->stok_akhir -= $request->quantity;
         }
-
         $product->save();
 
         // Update shipment
         $shipment->update([
-            'shipment_date'  => $request->shipment_date,
-            'destination'    => $request->destination,
-            'inventory_type' => $request->inventory_type,
-            'product_id'     => $product->id,
-            'product_name'   => $product->nama_produk,
-            'quantity'       => $request->quantity,
-            'city'           => $request->city,
-            'armada'         => $request->armada,
-            'status'         => $request->status,
-            'notes'          => $request->notes,
+            'shipment_date'   => $request->shipment_date,
+            'destination'     => $request->destination,
+            'inventory_type'  => $request->inventory_type,
+            'product_id'      => $product->id,
+            'product_name'    => $product->nama_produk,
+            'quantity'        => $request->quantity,
+            'city'            => $request->city,
+            'armada'          => $request->armada,
+            'status'          => $request->status,
+            'notes'           => $request->notes,
         ]);
 
-        return redirect()
-            ->route('shipments.index')
-            ->with('success', 'Pengiriman berhasil diperbarui');
+        return redirect()->route('shipments.index')->with('success', 'Pengiriman berhasil diperbarui');
     }
 
-    /**
-     * Hapus data pengiriman
-     */
     public function destroy(Shipment $shipment)
     {
         $product = Product::find($shipment->product_id);
-
         if ($product) {
-            // Kembalikan stok
             if ($shipment->inventory_type === 'Masuk') {
                 $product->stok_akhir -= $shipment->quantity;
             } else {
                 $product->stok_akhir += $shipment->quantity;
             }
-
             $product->save();
         }
 
         $shipment->delete();
-
-        return redirect()
-            ->route('shipments.index')
-            ->with('success', 'Pengiriman berhasil dihapus');
+        return redirect()->route('shipments.index')->with('success', 'Pengiriman berhasil dihapus');
     }
 }

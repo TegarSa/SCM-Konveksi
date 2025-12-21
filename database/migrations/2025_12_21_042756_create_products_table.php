@@ -10,20 +10,17 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('type');
-            $table->string('sku')->unique();
-            $table->foreignId('supplier_id')
-                ->nullable()
-                ->constrained('suppliers')
-                ->onDelete('set null');
-            $table->integer('initial_stock')->default(0);
-            $table->integer('stock_in')->default(0);
-            $table->integer('stock_out')->default(0);
-            $table->integer('stock_remaining')->default(0);
-            $table->string('unit')->nullable();
-            $table->decimal('price_per_unit', 15, 2)->default(0);
-            $table->decimal('total_price', 15, 2)->default(0);
+            $table->string('nama_produk');
+            $table->string('jenis_produk');
+            $table->string('sku_kode')->unique();
+            $table->foreignId('supplier_id')->nullable()->constrained('suppliers')->nullOnDelete();
+            $table->integer('stok_awal')->default(0);
+            $table->integer('stok_masuk')->default(0);
+            $table->integer('stok_keluar')->default(0);
+            $table->integer('stok_akhir')->default(0);
+            $table->string('satuan')->nullable();
+            $table->decimal('harga_satuan', 15, 2)->default(0);
+            $table->decimal('total_harga', 15, 2)->default(0);
             $table->timestamps();
         });
     }

@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('persediaan', [ProductController::class, 'store'])->name('persediaan.store');
     Route::get('persediaan/{barang}/edit', [ProductController::class, 'edit'])->name('persediaan.edit');
     Route::put('persediaan/{barang}', [ProductController::class, 'update'])->name('persediaan.update');
+    Route::delete('persediaan/{barang}', [ProductController::class, 'destroy'])->name('persediaan.destroy');
 });
 
 // =======================

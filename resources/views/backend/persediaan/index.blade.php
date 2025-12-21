@@ -64,6 +64,16 @@
                                     class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
+                                <form action="{{ route('persediaan.destroy', $item->id) }}"
+                                        method="POST"
+                                        class="d-inline"
+                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @empty

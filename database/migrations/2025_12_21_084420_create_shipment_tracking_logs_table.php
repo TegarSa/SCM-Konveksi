@@ -10,18 +10,10 @@ return new class extends Migration
     {
         Schema::create('shipment_tracking_logs', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('shipment_id')
-                ->constrained('shipments')
-                ->cascadeOnDelete();
-
-            $table->string('status');
-            // pending | on_delivery | delivered | canceled
-
+            $table->foreignId('shipment_id')->constrained('shipments')->cascadeOnDelete();
+            $table->enum('status', ['pending','on_delivery','delivered','canceled']);
             $table->text('description')->nullable();
-
             $table->timestamp('logged_at');
-
             $table->timestamps();
         });
     }
