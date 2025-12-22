@@ -42,11 +42,11 @@
             <li class="sidebar-header">Menu</li>
 
             <li class="sidebar-item">
-                <a data-bs-target="#profil" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                <a data-bs-target="#dashboard" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i data-feather="sliders"></i>
                     <span>Dashboards</span>
                 </a>
-                <ul id="profil" class="sidebar-dropdown list-unstyled collapse">
+                <ul id="dashboard" class="sidebar-dropdown list-unstyled collapse">
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('dashboard') }}">Analytics</a></li>
                 </ul>
             </li>
@@ -66,10 +66,10 @@
                     <span>Manajemen Persediaan</span>
                 </a>
                 <ul id="pelatihan" class="sidebar-dropdown list-unstyled collapse">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Bootcamp 2 Hari</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Bootcamp 3 Hari</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Bootcamp Ramadhan</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Pelatihan Online</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('list') }}">Daftar Stok</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('stock.in.create') }}">Stok Masuk</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('products.index') }}">Data Barang</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('stock.out.create') }}">Stok Keluar</a></li>
                 </ul>
             </li>
 
@@ -91,8 +91,8 @@
                     <span>Manajemen Gudang</span>
                 </a>
                 <ul id="unduh" class="sidebar-dropdown list-unstyled collapse">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Laporan Stok Gudang</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Pergerakan Stok</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('report') }}">Laporan Stok Gudang</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('stock.movements.index') }}">Pergerakan Stok</a></li>
                 </ul>
             </li>
 
@@ -102,7 +102,9 @@
                     <span>Manajemen Logistik & Distribusi</span>
                 </a>
                 <ul id="profil" class="sidebar-dropdown list-unstyled collapse">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Narasumber</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('shipments.index') }}">Daftar Pengiriman</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Tracking Pengiriman</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Riwayat Distribusi</a></li>
                 </ul>
             </li>
         </ul>

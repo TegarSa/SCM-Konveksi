@@ -10,16 +10,11 @@ return new class extends Migration
     {
         Schema::create('stock_movements', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('item_id')
-                ->constrained('items')
+            $table->foreignId('product_id')
+                ->constrained('products')
                 ->cascadeOnDelete();
-
             $table->enum('movement_type', ['IN', 'OUT']);
-
             $table->string('reference_type')->nullable();
-            // purchase_order | shipment | manual
-
             $table->unsignedBigInteger('reference_id')->nullable();
 
             $table->integer('quantity');

@@ -17,12 +17,11 @@ class PurchaseOrder extends Model
 
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->belongsTo(\App\Models\Supplier::class);
     }
 
     public function items()
     {
         return $this->hasMany(PurchaseOrderItem::class, 'po_id');
     }
-
 }
