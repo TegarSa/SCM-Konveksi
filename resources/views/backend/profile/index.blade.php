@@ -7,8 +7,13 @@
         <div class="col-md-4 d-flex">
             <div class="card shadow-sm mb-4 flex-fill">
                 <div class="card-body text-center">
-                    <img src="{{ auth()->user()->photo ?? asset('assets/img/logo.png') }}" 
-                         alt="Profile Picture" class="rounded-circle mb-3" width="120" height="120">
+                    <img src="{{ auth()->user()->photo_profile 
+                                ? asset('assets/photo_profile/' . auth()->user()->photo_profile) 
+                                : asset('assets/img/Default.png') }}" 
+                        alt="Profile Picture" 
+                        class="rounded-circle mb-3" 
+                        width="120" 
+                        height="120">
                     <h5 class="fw-bold">{{ auth()->user()->name }}</h5>
                     <p class="text-muted">{{ auth()->user()->institution }}</p>
                     <hr>
@@ -20,7 +25,7 @@
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="GET" class="d-none"></form>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"></form>
                     </div>
                 </div>
             </div>
@@ -33,8 +38,18 @@
                     <h5 class="mb-0">Public Info</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('profile.update') }}" method="POST">
+                    <form action="{{ route('profile.update') }}" method="POST"  enctype="multipart/form-data">
                         @csrf
+                         <!-- Foto Profil -->
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label fw-semibold">Profile Photo</label>
+                            <div class="col-sm-9">
+                                <input type="file" name="photo_profile" class="form-control">
+                                @if(auth()->user()->photo)
+                                    <img src="{{ asset('assets/photo_profile/' . auth()->user()->photo) }}" alt="Profile Photo" class="rounded mt-2" width="100">
+                                @endif
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <label class="col-sm-3 col-form-label fw-semibold">Name</label>
                             <div class="col-sm-9">

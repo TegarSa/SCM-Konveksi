@@ -1,20 +1,28 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
 
-        <a class="sidebar-brand" href="#">
-            <span class="align-middle sidebar-brand-text">Konveksi Jaya</span>
-            <svg class="align-middle sidebar-brand-icon" width="32" height="32" viewBox="0 0 24 24" fill="none"
-                stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter">
-                <path d="M12 4L20 8L12 12L4 8L12 4Z"></path>
-                <path d="M20 12L12 16L4 12"></path>
-                <path d="M20 16L12 20L4 16"></path>
-            </svg>
-        </a>
+     <div class="sidebar-header" style="position: relative; height: 70px;">
+            <a class="sidebar-brand d-block" href="#"
+            style="position: absolute; 
+                    top: -20px;
+                    left: 6px;     
+                    height: 125px; 
+                    width: calc(100% - 20px);
+                    background: url('{{ asset('/assets/img/logo.png') }}') no-repeat;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: left top;">
+            </a>
+        </div>
 
         <div class="sidebar-user text-center my-3">
             <div class="dropdown">
                 <a href="#" class="d-flex align-items-center text-decoration-none" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ auth()->user()->photo ?? asset('assets/img/Default.jpeg') }}" alt="User Avatar" class="rounded avatar img-fluid me-2">
+                    <img src="{{ auth()->user()->photo_profile
+                            ? asset('assets/photo_profile/' . auth()->user()->photo_profile) 
+                            : asset('assets/img/Default.png') }}" 
+                    alt="User Avatar" 
+                    class="rounded avatar img-fluid me-2">
                     <div class="text-start flex-fill">
                         <div class="d-flex align-items-center justify-content-start gap-2">
                             <span class="fw-semibold text-white">{{ auth()->user()->name }}</span>
@@ -57,6 +65,15 @@
                     <span>Profil</span>
                 </a>
             </li>
+
+            @if(auth()->user()->role === 'admin')
+            <li class="sidebar-item">
+                <a href="{{ route('admin.users.index') }}" class="sidebar-link">
+                    <i data-feather="users"></i>
+                    <span>Kelola Staff</span>
+                </a>
+            </li>
+            @endif
 
             <li class="sidebar-header">Pengelolaan</li>
 
@@ -104,7 +121,7 @@
                 <ul id="profil" class="sidebar-dropdown list-unstyled collapse">
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('shipments.index') }}">Daftar Pengiriman</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('shipments.tracking') }}">Tracking Pengiriman</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Riwayat Distribusi</a></li>
+                    <!-- <li class="sidebar-item"><a class="sidebar-link" href="#">Riwayat Distribusi</a></li> -->
                 </ul>
             </li>
         </ul>

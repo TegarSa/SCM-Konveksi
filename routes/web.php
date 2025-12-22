@@ -88,16 +88,9 @@ Route::middleware(['cek_login:admin,staff,manager'])->prefix('dashboard')->group
 
 Route::middleware(['cek_login:admin'])->prefix('dashboard/admin')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
-    Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
-    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
+    Route::post('/users/store', [UserController::class, 'store'])->name('admin.users.store');
+    Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::post('/users/update/{id}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::post('/users/delete/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 });
-
-// =======================
-// Managemen User oleh Admin
-// =======================
-// Route::middleware(['cek_login:admin'])->prefix('dashboard/admin')->group(function () {
-
-//         Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
-//         Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
-//         Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
-// });
