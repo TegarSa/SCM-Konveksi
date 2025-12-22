@@ -12,9 +12,11 @@
             <div class="card">
 
                 <div class="card-header text-end">
+                    @canCrud
                     <a href="{{ route('products.create') }}" class="btn btn-primary">
                         Tambah Produk
                     </a>
+                    @endcanCrud
                 </div>
 
                 <div class="card-body">
@@ -57,6 +59,7 @@
                                     </td>
 
                                     <td>
+                                        @canCrud
                                         <a href="{{ route('products.edit', $product->id) }}"
                                            class="btn btn-info btn-sm">
                                             Edit
@@ -71,6 +74,7 @@
                                                 Delete
                                             </button>
                                         </form>
+                                        @endcanCrud
                                     </td>
                                 </tr>
                             @endforeach

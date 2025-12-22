@@ -28,11 +28,11 @@
                             <span class="fw-semibold text-white">{{ auth()->user()->name }}</span>
                             <span class="dropdown-toggle text-white"></span>
                         </div>
-                        <div class="text-secondary fs-6">{{ auth()->user()->institution }}</div>
+                        <div class="text-secondary fs-6">{{ auth()->user()->role }}</div>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end mt-2">
-                    <li><a class="dropdown-item" href="#">Profil</a></li>
+                    <li><a class="dropdown-item" href="{{ route('profile') }}">Profil</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <a class="dropdown-item" href="{{ route('logout') }}"

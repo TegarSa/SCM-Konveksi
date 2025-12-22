@@ -12,12 +12,14 @@
             <div class="card">
 
                 <div class="card-header text-end">
+                    @canCrud
                     <a href="{{ route('stock.in.create') }}" class="btn btn-success btn-sm">
                         Stok Masuk
                     </a>
                     <a href="{{ route('stock.out.create') }}" class="btn btn-danger btn-sm">
                         Stok Keluar
                     </a>
+                    @endcanCrud
                 </div>
 
                 <div class="card-body">

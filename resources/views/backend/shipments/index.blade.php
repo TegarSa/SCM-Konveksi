@@ -10,10 +10,11 @@
         <h1 class="h3 mb-0">
             <i class="fas fa-truck me-2"></i> Daftar Pengiriman
         </h1>
-
+        @canCrud
         <a href="{{ route('shipments.create') }}" class="btn btn-primary">
             <i class="fas fa-plus me-1"></i> Tambah Pengiriman
         </a>
+        @endcanCrud
     </div>
 
     {{-- Card --}}
@@ -57,6 +58,7 @@
                             <td>{{ $shipment->city }}</td>
                             <td>{{ $shipment->armada }}</td>
                             <td class="text-center">
+                                @canCrud
                                 <a href="{{ route('shipments.edit', $shipment->id) }}"
                                     class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i>
@@ -72,6 +74,7 @@
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
+                                @endcanCrud
                             </td>
                         </tr>
                         @empty

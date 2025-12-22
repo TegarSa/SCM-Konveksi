@@ -12,9 +12,11 @@
             <div class="card">
 
                 <div class="card-header text-end">
+                    @canCrud
                     <a href="{{ route('po.create') }}" class="btn btn-primary">
                         Tambah
                     </a>
+                    @endcanCrud
                 </div>
 
                 <div class="card-body">
@@ -52,6 +54,7 @@
                                         </span>
                                     </td>
                                     <td>
+                                        @canCrud
                                         <a href="{{ route('po.edit', $po->id) }}"
                                            class="btn btn-info btn-sm">
                                             Edit
@@ -65,6 +68,7 @@
                                             </button>
                                         </form> 
                                         --}}
+                                        @endcanCrud
                                     </td>
                                 </tr>
                             @endforeach

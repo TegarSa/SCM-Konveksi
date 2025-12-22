@@ -13,9 +13,11 @@
                 <div class="card-header align-items-center">
                     <div class="row">
                         <div class="col-xl-12 text-end">
+                            @canCrud
                             <a href="{{ route('supplier.create') }}" class="btn btn-primary">
                                 Tambah Supplier
                             </a>
+                            @endcanCrud
                         </div>
                     </div>
                 </div>
@@ -43,6 +45,7 @@
                                     <td>{{ $supplier->email }}</td>
                                     <td>{{ $supplier->phone }}</td>
                                     <td>
+                                        @canCrud
                                         <a href="{{ route('supplier.edit', $supplier->id) }}" class="btn btn-info btn-sm">
                                             <i class="fas fa-pen"></i>
                                         </a>
@@ -55,6 +58,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+                                        @endcanCrud
                                     </td>
                                 </tr>
                             @endforeach
