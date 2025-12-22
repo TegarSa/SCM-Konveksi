@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use App\Models\Shipment;
+use App\Models\ShipmentTrackingLog;
 use App\Models\Product;
 use Illuminate\Support\Str;
 
@@ -19,6 +20,15 @@ class ShipmentsController extends Controller
     {
         $products = Product::all();
         return view('backend.shipments.create', compact('products'));
+    }
+
+    public function tracking(Shipment $shipment)
+    {
+        $logs = $shipment->trackingLogs()
+            ->orderBy('logged_at', 'desc')
+            ->get();
+
+        return view('backend.shipments.tracking', compact('shipment', 'logs'));
     }
 
     public function store(Request $request)

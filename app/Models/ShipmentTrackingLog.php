@@ -10,7 +10,14 @@ class ShipmentTrackingLog extends Model
     use HasFactory;
 
     protected $fillable = [
-        'shipment_id', 'status', 'description', 'logged_at'
+        'shipment_id',
+        'status',
+        'description',
+        'logged_at',
+    ];
+
+    protected $casts = [
+        'logged_at' => 'datetime',
     ];
 
     public function shipment()
