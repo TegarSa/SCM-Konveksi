@@ -101,18 +101,10 @@
                     <i data-feather="briefcase"></i>
                     <span>Manajemen Logistik & Distribusi</span>
                 </a>
-                
-                <ul id="menu-logistik" class="sidebar-dropdown list-unstyled collapse">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('shipments.index') }}">
-                            Shipment
-                        </a>
-                        <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('shipments.tracking') }}">
-                            Shipment Tracking Log
-                        </a>
-                    </li>
-                    </li>
+                <ul id="profil" class="sidebar-dropdown list-unstyled collapse">
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('shipments.index') }}">Daftar Pengiriman</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('shipments.tracking') }}">Tracking Pengiriman</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Riwayat Distribusi</a></li>
                 </ul>
             </li>
         </ul>
