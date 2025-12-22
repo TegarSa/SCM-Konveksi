@@ -22,11 +22,25 @@ class ShipmentsController extends Controller
         return view('backend.shipments.create', compact('products'));
     }
 
-    public function tracking(Shipment $shipment)
+    // Menampilkan semua tracking log
+    public function allTracking()
     {
-        $logs = $shipment->trackingLogs()
+        $logs = ShipmentTrackingLog::with('shipment')
             ->orderBy('logged_at', 'desc')
             ->get();
+
+        $shipment = null; // tidak ada shipment spesifik
+        return view('backend.shipments.tracking', compact('logs', 'shipment'));
+    }
+
+    // Menampilkan tracking log untuk shipment tertentu
+    public function tracking($id)
+    {
+        $shipment = Shipment::findOrFail($id);
+
+        $logs = ShipmentTrackingLog::where('shipment_id', $id)
+                    ->orderBy('logged_at', 'desc')
+                    ->get();
 
         return view('backend.shipments.tracking', compact('shipment', 'logs'));
     }
@@ -54,8 +68,8 @@ class ShipmentsController extends Controller
         // Generate nomor pengiriman unik
         $shipmentNumber = 'SHP-' . strtoupper(Str::random(8));
 
-        // Simpan shipment
-        Shipment::create([
+        // Simpan shipment dan ambil instance
+        $shipment = Shipment::create([
             'shipment_number' => $shipmentNumber,
             'shipment_date'   => $request->shipment_date,
             'destination'     => $request->destination,
@@ -67,6 +81,14 @@ class ShipmentsController extends Controller
             'armada'          => $request->armada,
             'status'          => 'on_delivery',
             'notes'           => $request->notes,
+        ]);
+
+        // Tambahkan tracking log otomatis
+        ShipmentTrackingLog::create([
+            'shipment_id' => $shipment->id,
+            'status'      => 'on_delivery', // status awal
+            'description' => 'Shipment dibuat dan siap dikirim',
+            'logged_at'   => now(),
         ]);
 
         // Update stok produk

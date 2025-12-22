@@ -132,6 +132,11 @@
                         <a class="sidebar-link" href="{{ route('shipments.index') }}">
                             Shipment
                         </a>
+                        <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('shipments.tracking') }}">
+                            Shipment Tracking Log
+                        </a>
+                    </li>
                     </li>
                 </ul>
             </li>

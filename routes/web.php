@@ -56,8 +56,7 @@ Route::middleware(['cek_login:admin,staff,manager'])->prefix('dashboard')->group
         Route::get('/edit/{shipment}', [ShipmentsController::class, 'edit'])->name('shipments.edit');
         Route::post('/update/{shipment}', [ShipmentsController::class, 'update'])->name('shipments.update');
         Route::post('/delete/{shipment}', [ShipmentsController::class, 'destroy'])->name('shipments.destroy');
-        Route::get('/{shipment}/tracking', [ShipmentsController::class, 'tracking'])
-        ->name('shipments.tracking');
+        Route::get('/tracking', [ShipmentsController::class, 'allTracking'])->name('shipments.tracking');
     });
 
 });

@@ -17,6 +17,7 @@
     </div>
 
     {{-- Info Shipment --}}
+    @if($shipment)
     <div class="card shadow-sm mb-3">
         <div class="card-body">
             <div class="row">
@@ -45,6 +46,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     {{-- Tracking Log --}}
     <div class="card shadow-sm">
@@ -52,10 +54,13 @@
 
             <div class="table-responsive">
                 <table id="trackingTable"
-                       class="table table-bordered table-striped table-hover align-middle w-100">
+                        class="table table-bordered table-striped table-hover align-middle w-100">
                     <thead class="table-light">
                         <tr class="text-center">
                             <th>No</th>
+                            @if(!$shipment)
+                            <th>Shipment</th>
+                            @endif
                             <th>Status</th>
                             <th>Deskripsi</th>
                             <th>Waktu</th>
@@ -66,8 +71,19 @@
                         @forelse ($logs as $log)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
+                            @if(!$shipment)
+                            <td>{{ $log->shipment->shipment_number ?? '-' }}</td>
+                            @endif
                             <td class="text-center">
-                                <span class="badge bg-{{ $badge[$log->status] }}">
+                                @php
+                                    $badge = [
+                                        'pending' => 'secondary',
+                                        'on_delivery' => 'warning',
+                                        'delivered' => 'success',
+                                        'canceled' => 'danger'
+                                    ];
+                                @endphp
+                                <span class="badge bg-{{ $badge[$log->status] ?? 'secondary' }}">
                                     {{ ucfirst(str_replace('_', ' ', $log->status)) }}
                                 </span>
                             </td>
@@ -78,7 +94,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="text-center text-muted py-4">
+                            <td colspan="{{ $shipment ? 4 : 5 }}" class="text-center text-muted py-4">
                                 <i class="fas fa-clock fa-lg mb-2"></i><br>
                                 Tracking log belum tersedia
                             </td>
