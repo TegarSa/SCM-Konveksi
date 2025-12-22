@@ -6,8 +6,10 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\SupplierController;
 use App\Http\Controllers\Dashboard\PurchaseOrderController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ShipmentsController;
+use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\ShipmentsController;
+use App\Http\Controllers\Dashboard\StockMovementController;
+use App\Http\Controllers\Dashboard\StockSummaryController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -37,19 +39,19 @@ Route::middleware(['cek_login:admin,staff,manager'])->prefix('dashboard')->group
         Route::get('/create', [PurchaseOrderController::class, 'create'])->name('po.create');
         Route::post('/store', [PurchaseOrderController::class, 'store'])->name('po.store');
         Route::get('/edit/{id}', [PurchaseOrderController::class, 'edit'])->name('po.edit');
-        Route::post('/update/{id}', [PurchaseOrderController::class, 'update'])->name('po.update');
+        Route::put('/update/{id}', [PurchaseOrderController::class, 'update'])->name('po.update');
     });
 
-    Route::prefix('/persediaan')->middleware(['auth'])->group(function () {
-        Route::get('/', [ProductController::class, 'index'])->name('persediaan.index');
-        Route::get('/create', [ProductController::class, 'create'])->name('persediaan.create');
-        Route::post('/store', [ProductController::class, 'store'])->name('persediaan.store');
-        Route::get('/edit/{barang}', [ProductController::class, 'edit'])->name('persediaan.edit');
-        Route::post('/update/{barang}', [ProductController::class, 'update'])->name('persediaan.update');
-        Route::post('/delete/{barang}', [ProductController::class, 'destroy'])->name('persediaan.destroy');
+    Route::prefix('/persediaan')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('products.index');
+        Route::get('/create', [ProductController::class, 'create'])->name('products.create');
+        Route::post('/store', [ProductController::class, 'store'])->name('products.store');
+        Route::get('/edit/{barang}', [ProductController::class, 'edit'])->name('products.edit');
+        Route::post('/update/{barang}', [ProductController::class, 'update'])->name('products.update');
+        Route::post('/delete/{barang}', [ProductController::class, 'destroy'])->name('products.destroy');
     });
 
-    Route::prefix('/shipments')->middleware(['auth'])->group(function () {
+    Route::prefix('/shipments')->group(function () {
         Route::get('/', [ShipmentsController::class, 'index'])->name('shipments.index');
         Route::get('/create', [ShipmentsController::class, 'create'])->name('shipments.create');
         Route::post('/store', [ShipmentsController::class, 'store'])->name('shipments.store');
@@ -57,6 +59,29 @@ Route::middleware(['cek_login:admin,staff,manager'])->prefix('dashboard')->group
         Route::post('/update/{shipment}', [ShipmentsController::class, 'update'])->name('shipments.update');
         Route::post('/delete/{shipment}', [ShipmentsController::class, 'destroy'])->name('shipments.destroy');
         Route::get('/tracking', [ShipmentsController::class, 'allTracking'])->name('shipments.tracking');
+    });
+
+    Route::prefix('/stock-report')->group(function () {
+        Route::get('list', [StockSummaryController::class, 'index'])->name('list');
+        Route::get('report', [StockSummaryController::class, 'report'])->name('report');
+    });
+
+    Route::prefix('/stock')->group(function () {
+        // 1. PERGERAKAN STOK (LOG)
+        Route::get('/movements', [StockMovementController::class, 'index'])
+            ->name('stock.movements.index');
+
+        // 2. STOK MASUK
+        Route::get('/in/create', [StockMovementController::class, 'createIn'])
+            ->name('stock.in.create');
+        Route::post('/in/store', [StockMovementController::class, 'storeIn'])
+            ->name('stock.in.store');
+
+        // 3. STOK KELUAR
+        Route::get('/out/create', [StockMovementController::class, 'createOut'])
+            ->name('stock.out.create');
+        Route::post('/out/store', [StockMovementController::class, 'storeOut'])
+            ->name('stock.out.store');
     });
 
 });

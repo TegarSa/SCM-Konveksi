@@ -1,33 +1,26 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
 
-        {{-- Brand --}}
         <a class="sidebar-brand" href="#">
             <span class="align-middle sidebar-brand-text">Konveksi Jaya</span>
-            <svg class="align-middle sidebar-brand-icon" width="32" height="32"
-                viewBox="0 0 24 24" fill="none"
-                stroke="#FFFFFF" stroke-width="1.5"
-                stroke-linecap="square" stroke-linejoin="miter">
+            <svg class="align-middle sidebar-brand-icon" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter">
                 <path d="M12 4L20 8L12 12L4 8L12 4Z"></path>
                 <path d="M20 12L12 16L4 12"></path>
                 <path d="M20 16L12 20L4 16"></path>
             </svg>
         </a>
 
-        {{-- User --}}
         <div class="sidebar-user text-center my-3">
             <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-decoration-none"
-                   id="dropdownUser" data-bs-toggle="dropdown">
-                    <img src="{{ auth()->user()->photo ?? asset('assets/img/Default.jpeg') }}"
-                         class="rounded avatar img-fluid me-2">
+                <a href="#" class="d-flex align-items-center text-decoration-none" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ auth()->user()->photo ?? asset('assets/img/Default.jpeg') }}" alt="User Avatar" class="rounded avatar img-fluid me-2">
                     <div class="text-start flex-fill">
-                        <div class="fw-semibold text-white">
-                            {{ auth()->user()->name }}
+                        <div class="d-flex align-items-center justify-content-start gap-2">
+                            <span class="fw-semibold text-white">{{ auth()->user()->name }}</span>
+                            <span class="dropdown-toggle text-white"></span>
                         </div>
-                        <div class="text-secondary fs-6">
-                            {{ auth()->user()->institution }}
-                        </div>
+                        <div class="text-secondary fs-6">{{ auth()->user()->institution }}</div>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end mt-2">
@@ -35,11 +28,10 @@
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}"
-                              method="GET" class="d-none"></form>
+                        <form id="logout-form" action="{{ route('logout') }}" method="GET" class="d-none"></form>
                     </li>
                 </ul>
             </div>
@@ -49,15 +41,16 @@
 
             <li class="sidebar-header">Menu</li>
 
-            {{-- Dashboard --}}
             <li class="sidebar-item">
-                <a href="{{ route('dashboard') }}" class="sidebar-link">
-                    <i data-feather="home"></i>
-                    <span>Dashboard</span>
+                <a data-bs-target="#dashboard" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i data-feather="sliders"></i>
+                    <span>Dashboards</span>
                 </a>
+                <ul id="dashboard" class="sidebar-dropdown list-unstyled collapse">
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('dashboard') }}">Analytics</a></li>
+                </ul>
             </li>
 
-            {{-- Profil --}}
             <li class="sidebar-item">
                 <a href="{{ route('profile') }}" class="sidebar-link">
                     <i data-feather="user"></i>
@@ -67,66 +60,48 @@
 
             <li class="sidebar-header">Pengelolaan</li>
 
-            {{-- Persediaan --}}
             <li class="sidebar-item">
-                <a data-bs-toggle="collapse" data-bs-target="#menu-persediaan"
-                   class="sidebar-link collapsed">
-                    <i data-feather="archive"></i>
+                <a data-bs-target="#pelatihan" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i data-feather="briefcase"></i>
                     <span>Manajemen Persediaan</span>
                 </a>
-                <ul id="menu-persediaan" class="sidebar-dropdown list-unstyled collapse">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('persediaan.index') }}">
-                            Data Persediaan
-                        </a>
-                    </li>
+                <ul id="pelatihan" class="sidebar-dropdown list-unstyled collapse">
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('list') }}">Daftar Stok</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('stock.in.create') }}">Stok Masuk</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('products.index') }}">Data Barang</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('stock.out.create') }}">Stok Keluar</a></li>
                 </ul>
             </li>
 
-            {{-- Pengadaan --}}
             <li class="sidebar-item">
-                <a data-bs-toggle="collapse" data-bs-target="#menu-pengadaan"
-                   class="sidebar-link collapsed">
-                    <i data-feather="shopping-cart"></i>
+                <a data-bs-target="#berita" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i data-feather="briefcase"></i>
                     <span>Pengadaan / Pembelian</span>
                 </a>
-                <ul id="menu-pengadaan" class="sidebar-dropdown list-unstyled collapse">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('supplier.index') }}">
-                            Data Pemasok
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('po.index') }}">
-                            Purchase Order
-                        </a>
-                    </li>
+                <ul id="berita" class="sidebar-dropdown list-unstyled collapse">
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('supplier.index') }}">Data Pemasok</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('po.index') }}">Purchase Order (PO)</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Riwayat PO</a></li>
                 </ul>
             </li>
 
-            {{-- Gudang --}}
             <li class="sidebar-item">
-                <a data-bs-toggle="collapse" data-bs-target="#menu-gudang"
-                   class="sidebar-link collapsed">
-                    <i data-feather="box"></i>
+                <a data-bs-target="#unduh" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i data-feather="briefcase"></i>
                     <span>Manajemen Gudang</span>
                 </a>
-                <ul id="menu-gudang" class="sidebar-dropdown list-unstyled collapse">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
-                            Laporan Stok
-                        </a>
-                    </li>
+                <ul id="unduh" class="sidebar-dropdown list-unstyled collapse">
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('report') }}">Laporan Stok Gudang</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('stock.movements.index') }}">Pergerakan Stok</a></li>
                 </ul>
             </li>
 
-            {{-- Logistik --}}
             <li class="sidebar-item">
-                <a data-bs-toggle="collapse" data-bs-target="#menu-logistik"
-                    class="sidebar-link collapsed">
-                    <i data-feather="truck"></i>
-                    <span>Logistik & Distribusi</span>
+                <a data-bs-target="#profil" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i data-feather="briefcase"></i>
+                    <span>Manajemen Logistik & Distribusi</span>
                 </a>
+                
                 <ul id="menu-logistik" class="sidebar-dropdown list-unstyled collapse">
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('shipments.index') }}">
@@ -140,7 +115,6 @@
                     </li>
                 </ul>
             </li>
-
         </ul>
     </div>
 </nav>

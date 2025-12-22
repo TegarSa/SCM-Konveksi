@@ -14,7 +14,7 @@
                 <div class="card-header align-items-center">
                     <div class="row">
                         <div class="col-xl-12 text-end">
-                            <a href="{{ route('supplier.index') }}" class="btn btn-warning">
+                            <a href="{{ route('po.index') }}" class="btn btn-warning">
                                 Kembali
                             </a>
                         </div>
@@ -22,84 +22,48 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('supplier.update', $supplier->id) }}" method="POST">
+                   <form action="{{ route('po.update', $po->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
 
-                        {{-- NAME --}}
-                        <div class="mb-3 row">
-                            <label class="col-form-label col-sm-2 text-sm-end">Nama Supplier</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="name"
-                                    value="{{ old('name', $supplier->name) }}"
-                                    class="form-control @error('name') is-invalid @enderror">
-                                @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                        {{-- Supplier --}}
+                        <div class="mb-3">
+                            <label>Supplier</label>
+                            <input type="text" class="form-control" value="{{ $po->supplier->name }}" readonly>
                         </div>
 
-                        {{-- CONTACT --}}
+                        @foreach($po->items as $index => $item)
                         <div class="mb-3 row">
-                            <label class="col-form-label col-sm-2 text-sm-end">Contact Person</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="contact"
-                                    value="{{ old('contact', $supplier->contact) }}"
-                                    class="form-control @error('contact') is-invalid @enderror">
-                                @error('contact')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                            <div class="col-6">
+                                <input type="text" class="form-control" value="{{ $item->product->name }}" readonly>
+                            </div>
+                            <div class="col-2">
+                                <input type="number" name="quantity[]" class="form-control quantity-input" value="{{ $item->quantity }}" min="1">
+                            </div>
+                            <div class="col-2">
+                                <input type="number" class="form-control price-input" value="{{ $item->product->price }}" readonly>
+                            </div>
+                            <div class="col-2">
+                                <input type="number" class="form-control sub-total-input" value="{{ $item->sub_total }}" readonly>
                             </div>
                         </div>
+                        @endforeach
 
-                        {{-- ADDRESS --}}
-                        <div class="mb-3 row">
-                            <label class="col-form-label col-sm-2 text-sm-end">Alamat</label>
-                            <div class="col-sm-10">
-                                <textarea name="address"
-                                    class="form-control @error('address') is-invalid @enderror"
-                                    rows="3">{{ old('address', $supplier->address) }}</textarea>
-                                @error('address')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                        {{-- Status --}}
+                        <div class="mb-3">
+                            <label>Status</label>
+                            <select name="status" class="form-select">
+                                @foreach(['draft','approved','shipped','completed','canceled'] as $status)
+                                    <option value="{{ $status }}" {{ $po->status == $status ? 'selected' : '' }}>
+                                        {{ ucfirst($status) }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
-                        {{-- EMAIL --}}
-                        <div class="mb-3 row">
-                            <label class="col-form-label col-sm-2 text-sm-end">Email</label>
-                            <div class="col-sm-10">
-                                <input type="email" name="email"
-                                    value="{{ old('email', $supplier->email) }}"
-                                    class="form-control @error('email') is-invalid @enderror">
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- PHONE --}}
-                        <div class="mb-3 row">
-                            <label class="col-form-label col-sm-2 text-sm-end">No. Telepon</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="phone"
-                                    value="{{ old('phone', $supplier->phone) }}"
-                                    class="form-control @error('phone') is-invalid @enderror">
-                                @error('phone')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- BUTTON --}}
-                        <div class="mb-3 row">
-                            <div class="col-sm-10 ms-sm-auto">
-                                <button type="submit" class="btn btn-primary">
-                                    Simpan Perubahan
-                                </button>
-                            </div>
-                        </div>
-
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </form>
+
                 </div>
 
             </div>
@@ -108,3 +72,28 @@
 
 </div>
 @endsection
+
+@push('js')
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const productSelects = document.querySelectorAll('.product-select');
+    const quantityInputs = document.querySelectorAll('.quantity-input');
+    const priceInputs = document.querySelectorAll('.price-input');
+
+    productSelects.forEach((select, index) => {
+        const quantityInput = quantityInputs[index];
+        const priceInput = priceInputs[index];
+
+        function updatePrice() {
+            const selectedOption = select.options[select.selectedIndex];
+            const productPrice = Number(selectedOption.dataset.price || 0);
+            const qty = Number(quantityInput.value || 0);
+            priceInput.value = productPrice * qty;
+        }
+
+        select.addEventListener('change', updatePrice);
+        quantityInput.addEventListener('input', updatePrice);
+    });
+});
+</script>
+@endpush

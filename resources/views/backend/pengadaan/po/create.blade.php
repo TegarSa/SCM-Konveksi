@@ -27,7 +27,7 @@
                                     <option value="">-- Pilih Supplier --</option>
                                     @foreach ($suppliers as $supplier)
                                         <option value="{{ $supplier->id }}">
-                                            {{ $supplier->nama_supplier }}
+                                            {{ $supplier->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -58,26 +58,26 @@
 
                         <hr>
 
-                        {{-- ITEM --}}
+                        {{-- PRODUCT --}}
                         <div class="mb-3 row">
-                            <label class="col-sm-2 col-form-label text-sm-end">Barang</label>
+                            <label class="col-sm-2 col-form-label text-sm-end">Produk</label>
                             <div class="col-sm-10">
-                                <select name="item_id" class="form-select" required>
-                                    <option value="">-- Pilih Barang --</option>
-                                    @foreach ($items as $item)
-                                        <option value="{{ $item->id }}">
-                                            {{ $item->item_name }}
+                                <select name="product_id[]" class="form-select product-select" required>
+                                    <option value="">-- Pilih Produk --</option>
+                                    @foreach ($products as $product)
+                                        <option value="{{ $product->id }}" data-price="{{ $product->price }}">
+                                            {{ $product->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
 
-                        {{-- QTY --}}
+                        {{-- QUANTITY --}}
                         <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label text-sm-end">Jumlah</label>
                             <div class="col-sm-10">
-                                <input type="number" name="quantity" class="form-control" required>
+                                <input type="number" name="quantity[]" class="form-control quantity-input" min="1" required>
                             </div>
                         </div>
 
@@ -85,7 +85,7 @@
                         <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label text-sm-end">Harga</label>
                             <div class="col-sm-10">
-                                <input type="number" name="price" class="form-control" required>
+                                <input type="number" name="price[]" class="form-control price-input" readonly>
                             </div>
                         </div>
 
@@ -107,3 +107,28 @@
 
 </div>
 @endsection
+
+@push('js')
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const productSelects = document.querySelectorAll('.product-select');
+    const quantityInputs = document.querySelectorAll('.quantity-input');
+    const priceInputs = document.querySelectorAll('.price-input');
+
+    productSelects.forEach((select, index) => {
+        const quantityInput = quantityInputs[index];
+        const priceInput = priceInputs[index];
+
+        function updatePrice() {
+            const selectedOption = select.options[select.selectedIndex];
+            const productPrice = Number(selectedOption.dataset.price || 0);
+            const qty = Number(quantityInput.value || 0);
+            priceInput.value = productPrice * qty;
+        }
+
+        select.addEventListener('change', updatePrice);
+        quantityInput.addEventListener('input', updatePrice);
+    });
+});
+</script>
+@endpush

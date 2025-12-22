@@ -4,7 +4,7 @@
 <div class="container-fluid p-0">
 
     <div class="mb-3">
-        <h1 class="align-middle h3 d-inline">Daftar Purchase Order</h1>
+        <h1 class="align-middle h3 d-inline">Daftar Produk</h1>
     </div>
 
     <div class="row">
@@ -12,8 +12,8 @@
             <div class="card">
 
                 <div class="card-header text-end">
-                    <a href="{{ route('po.create') }}" class="btn btn-primary">
-                        Tambah
+                    <a href="{{ route('products.create') }}" class="btn btn-primary">
+                        Tambah Produk
                     </a>
                 </div>
 
@@ -22,49 +22,55 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Supplier</th>
-                                <th>Produk</th>
-                                <th>Jumlah</th>
+                                <th>Nama Produk</th>
+                                <th>SKU</th>
+                                <th>Kategori</th>
+                                <th>Satuan</th>
+                                <th>Stok</th>
                                 <th>Harga</th>
-                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($purchaseOrders as $po)
+                            @foreach ($products as $product)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $po->supplier->name }}</td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->sku }}</td>
+                                    <td>{{ $product->category ?? '-' }}</td>
+                                    <td>{{ $product->unit }}</td>
+
+                                    {{-- STOK (hasil hitung) --}}
                                     <td>
-                                        {{ $po->items->first()->product->name ?? '-' }}
-                                    </td>
-                                    <td>{{ $po->items->sum('quantity') }}</td>
-                                    <td>Rp {{ number_format($po->total_price, 0, ',', '.') }}</td>
-                                    <td>
-                                        <span class="badge 
-                                            @if($po->status == 'approved') bg-success
-                                            @elseif($po->status == 'draft') bg-secondary
-                                            @elseif($po->status == 'shipped') bg-info
-                                            @elseif($po->status == 'completed') bg-primary
-                                            @else bg-danger
-                                            @endif">
-                                            {{ ucfirst($po->status) }}
+                                        @php
+                                            $stock = $product->stock ?? 0;
+                                        @endphp
+
+                                        <span class="badge
+                                            {{ $stock <= $product->min_stock ? 'bg-danger' : 'bg-success' }}">
+                                            {{ $stock }}
                                         </span>
                                     </td>
+
                                     <td>
-                                        <a href="{{ route('po.edit', $po->id) }}"
+                                        Rp {{ number_format($product->price, 0, ',', '.') }}
+                                    </td>
+
+                                    <td>
+                                        <a href="{{ route('products.edit', $product->id) }}"
                                            class="btn btn-info btn-sm">
                                             Edit
                                         </a>
-                                        {{-- 
-                                        <form action="{{ route('po.destroy', $po->id) }}" method="POST" class="d-inline">
+
+                                        <form action="{{ route('products.destroy', $product->id) }}"
+                                              method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Hapus PO ini?')">
+                                            <button class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Hapus produk ini?')">
                                                 Delete
                                             </button>
-                                        </form> 
-                                        --}}
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

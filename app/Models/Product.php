@@ -12,22 +12,26 @@ class Product extends Model
     protected $table = 'products';
 
     protected $fillable = [
-        'nama_produk',
-        'jenis_produk',
-        'sku_kode',
-        'supplier_id',
-        'stok_awal',
-        'stok_masuk',
-        'stok_keluar',
-        'stok_akhir',
-        'satuan',
-        'harga_satuan',
-        'total_harga',
+        'name',
+        'sku',
+        'category',
+        'unit',
+        'price',
+        'min_stock',
     ];
 
-    public function supplier()
+    public function purchaseOrderItems()
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->hasMany(PurchaseOrderItem::class);
+    }
+
+    public function stockMovements()
+    {
+        return $this->hasMany(StockMovement::class);
+    }
+
+    public function getPriceFormattedAttribute()
+    {
+        return number_format($this->price, 0, ',', '.');
     }
 }
-
