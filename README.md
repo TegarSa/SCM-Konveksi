@@ -1,10 +1,10 @@
-## 🚀 Fitur & Modul Sistem
+##  Fitur & Modul Sistem
 
 Sistem **SCM Konveksi** dibangun dengan konsep *integrated modules*, di mana setiap modul saling terhubung dan berbagi data. Sistem ini dirancang untuk meminimalkan input manual, menjaga konsistensi data, serta merepresentasikan alur Supply Chain Management (SCM) pada usaha konveksi secara nyata.
 
 ---
 
-## 📦 Modul Inventory
+##  Modul Inventory
 
 Modul Inventory berfungsi sebagai pusat pengelolaan stok barang atau bahan baku konveksi.
 
@@ -40,7 +40,7 @@ Modul Inventory berfungsi sebagai pusat pengelolaan stok barang atau bahan baku 
 
 ---
 
-## 🛒 Modul Procurement
+##  Modul Procurement
 
 Modul Procurement mengelola proses pengadaan barang dari pemasok.
 
@@ -73,7 +73,7 @@ Modul Procurement mengelola proses pengadaan barang dari pemasok.
 
 ---
 
-## 🏭 Modul Warehouse
+##  Modul Warehouse
 
 Modul Warehouse berfokus pada aktivitas gudang dan histori pergerakan barang.
 
@@ -91,7 +91,7 @@ Modul Warehouse berfokus pada aktivitas gudang dan histori pergerakan barang.
 
 ---
 
-## 🚚 Modul Logistik
+##  Modul Logistik
 
 Modul Logistik menangani proses distribusi barang dari gudang ke tujuan.
 
@@ -120,11 +120,11 @@ Modul Logistik menangani proses distribusi barang dari gudang ke tujuan.
 
 ---
 
-## 🔗 Konsep Integrasi Data
+##  Konsep Integrasi Data
 
 Beberapa prinsip utama yang diterapkan dalam sistem ini:
 
-- ❌ Tidak ada input stok secara manual
+-  Tidak ada input stok secara manual
 - ✔ Stok dihitung berdasarkan transaksi
 - ✔ Modul saling terhubung dan bergantung satu sama lain
 - ✔ Mengurangi risiko data ganda dan kesalahan input
