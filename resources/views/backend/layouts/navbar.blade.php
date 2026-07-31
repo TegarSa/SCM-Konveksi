@@ -25,6 +25,7 @@
                             @csrf
                             <button type="submit" class="dropdown-item">Logout</button>
                         </form>
+                        <!-- //logout -->
                     @endif @endauth
                 </div>
             </li>
